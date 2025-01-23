@@ -6,13 +6,17 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 import matplotlib.pyplot as plt
 
-# Step 1: Download the stock data
 def get_stock_data(ticker, start, end):
+    """
+    Description: Download stock data
+    """
     data = yf.download(ticker, start=start, end=end)
     return data['Close']
 
-# Step 2: Prepare the data
 def prepare_data(data, window_size):
+    """
+    Description: Data preparation
+    """
     scaler = MinMaxScaler(feature_range=(0, 1))
     scaled_data = scaler.fit_transform(data.values.reshape(-1, 1))
     
@@ -23,8 +27,10 @@ def prepare_data(data, window_size):
     
     return np.array(x_train), np.array(y_train), scaler
 
-# Step 3: Build the LSTM Model
 def build_lstm_model(input_shape):
+    """
+    Description: Long Short-Term Memory Model
+    """
     model = Sequential()
     model.add(LSTM(50, return_sequences=True, input_shape=input_shape))
     model.add(LSTM(50, return_sequences=False))
@@ -33,7 +39,6 @@ def build_lstm_model(input_shape):
     model.compile(optimizer='adam', loss='mean_squared_error')
     return model
 
-# Main Execution
 if __name__ == "__main__":
     # Parameters
     ticker = "AAPL"
