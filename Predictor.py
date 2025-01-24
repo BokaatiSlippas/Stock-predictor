@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import yfinance as yf
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
